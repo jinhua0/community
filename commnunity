@@ -1,8 +1,0 @@
-2022-06-12 19:30:27.892  INFO 26452 --- [main] com.newcoder.community.LoggerTest        : Starting LoggerTest using Java 1.8.0_191 on KFC with PID 26452 (started by 25789 in D:\IdeaProjects\community)
-2022-06-12 19:30:27.901 DEBUG 26452 --- [main] com.newcoder.community.LoggerTest        : Running with Spring Boot v2.7.0, Spring v5.3.20
-2022-06-12 19:30:27.907  INFO 26452 --- [main] com.newcoder.community.LoggerTest        : No active profile set, falling back to 1 default profile: "default"
-2022-06-12 19:30:31.084  INFO 26452 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
-2022-06-12 19:30:31.603  INFO 26452 --- [main] com.newcoder.community.LoggerTest        : Started LoggerTest in 4.408 seconds (JVM running for 5.942)
-2022-06-12 19:30:31.912 DEBUG 26452 --- [main] com.newcoder.community.LoggerTest        : debug
-2022-06-12 19:30:31.912  INFO 26452 --- [main] com.newcoder.community.LoggerTest        : info
-2022-06-12 19:30:31.912 ERROR 26452 --- [main] com.newcoder.community.LoggerTest        : error

@@ -18,6 +18,13 @@ spring:
       maximum-pool-size: 15
       minimum-idle: 5
       idle-timeout: 30000
+  mail:
+    host: smtp.sina.com
+    port: 465
+    username: newcoderhua@sina.com
+    password: f4f18f51bc60ea19
+    protocol: smtps
+
 
 # DataSourcesProperties
 mybatis:
@@ -32,3 +39,5 @@ mybatis:
 # logger
 logging:
   level: debug
+
+# MailProperties
