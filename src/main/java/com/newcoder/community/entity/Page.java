@@ -69,7 +69,12 @@ public class Page {
      * @return
      */
     public int getTotal() {
-        return (int) Math.ceil(rows / limit);
+        int total = rows / limit;
+        if (rows % limit == 0) {
+            return total;
+        } else {
+            return total + 1;
+        }
     }
 
     /**

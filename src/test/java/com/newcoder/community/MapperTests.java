@@ -2,10 +2,10 @@ package com.newcoder.community;
 
 import com.newcoder.community.dao.DiscussPostMapper;
 import com.newcoder.community.dao.LoginTicketMapper;
+import com.newcoder.community.dao.MessageMapper;
 import com.newcoder.community.dao.UserMapper;
-import com.newcoder.community.entity.DiscussPost;
-import com.newcoder.community.entity.LoginTicket;
-import com.newcoder.community.entity.User;
+import com.newcoder.community.entity.*;
+import com.newcoder.community.service.DiscussPostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,6 +30,44 @@ public class MapperTests {
 
     @Autowired
     private LoginTicketMapper loginTicketMapper;
+
+    @Autowired
+    private DiscussPostService discussPostService;
+
+    @Autowired
+    private MessageMapper messageMapper;
+
+    @Test
+    public void testMessage() {
+        List<Message> messages = messageMapper.selectConversations(111, 0, 20);
+        for (Message message : messages){
+            System.out.println(message);
+        }
+
+        int count = messageMapper.selectConversationCount(111);
+        System.out.println(count);
+
+        List<Message> messages1 = messageMapper.selectLetters("111_112", 0, 10);
+        for (Message message : messages1) {
+            System.out.println(message);
+        }
+
+        count = messageMapper.selectLetterCount("111_112");
+        System.out.println(count);
+
+        count = messageMapper.selectLetterUnreadCount(131, "111_131");
+        System.out.println(count);
+    }
+    
+
+    @Test
+    public void testSelectById(){
+        Page page = new Page();
+        int row = discussPostService.findDicussPostRows(0);
+        page.setRows(row);
+        System.out.println(page.getRows());
+        System.out.println(page.getTotal());
+    }
 
     @Test
     public void TestSelectById(){
@@ -103,4 +141,18 @@ public class MapperTests {
         LoginTicket loginTicket2 = loginTicketMapper.selectByTicket("abc");
         System.out.println(loginTicket2);
     }
+
+    @Test
+    public void testInsertDiscuss() {
+        DiscussPost post = new DiscussPost();
+        post.setUserId(999);
+        post.setTitle("title");
+        post.setContent("content");
+        post.setCreateTime(new Date());
+        int i = discussPostService.addDiscussPost(post);
+        System.out.println(i);
+
+    }
+
 }
+

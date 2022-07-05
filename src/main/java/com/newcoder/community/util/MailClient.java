@@ -12,7 +12,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 /**
- * @Description:
+ * @Description: 发送邮件的工具
  * @ClassName: MailClient
  * @author: jinhua
  */

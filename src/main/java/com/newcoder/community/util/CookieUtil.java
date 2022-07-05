@@ -4,7 +4,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Description:
+ * @Description: 得到Cookie值的工具
  * @ClassName: CookieUtil
  * @author: jinhua
  */

@@ -16,7 +16,7 @@ public class DiscussPost {
     private int type; //0 普通， 1 置顶
     private int status; // 0 正常，1 精华， 2拉黑
     private Date createTime;
-    private int commmentCount;
+    private int commentCount;
     private double score;
 
     public int getId() {
@@ -75,12 +75,12 @@ public class DiscussPost {
         this.createTime = createTime;
     }
 
-    public int getCommmentCount() {
-        return commmentCount;
+    public int getCommentCount() {
+        return commentCount;
     }
 
-    public void setCommmentCount(int commmentCount) {
-        this.commmentCount = commmentCount;
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
     public double getScore() {
@@ -101,7 +101,7 @@ public class DiscussPost {
                 ", type=" + type +
                 ", status=" + status +
                 ", createTime=" + createTime +
-                ", commmentCount=" + commmentCount +
+                ", commentCount=" + commentCount +
                 ", score=" + score +
                 '}';
     }

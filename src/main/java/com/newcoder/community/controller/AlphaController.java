@@ -1,8 +1,15 @@
 package com.newcoder.community.controller;
 
 import com.newcoder.community.util.CommunityUtil;
-import com.sun.deploy.net.HttpResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +32,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("alpha")
 public class AlphaController {
+
+    @Autowired
+    private TransactionTemplate transactionTemplate;
 
     @RequestMapping("hello")
     @ResponseBody
@@ -161,4 +171,33 @@ public class AlphaController {
         return "get session";
     }
 
+    // 发送Ajax请求
+    @RequestMapping(path = "ajax", method = RequestMethod.POST)
+    @ResponseBody
+    public String getAjax(String name, int age){
+        System.out.println(name);
+        System.out.println(age);
+        return CommunityUtil.getJSONString(0, "操作成功");
+    }
+
+    // 事务管理, 注解实现,声明式事务
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public Object save() {
+
+        return "OK";
+    }
+
+    // 编程式事务管理
+    public Object save2() {
+        transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
+        transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+        return transactionTemplate.execute(new TransactionCallback<Object>() {
+            @Override
+            public Object doInTransaction(TransactionStatus status) {
+
+                return "ok";
+            }
+        });
+    }
 }
