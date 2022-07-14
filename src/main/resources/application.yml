@@ -24,6 +24,10 @@ spring:
     username: newcoderhua@sina.com
     password: f4f18f51bc60ea19
     protocol: smtps
+  redis:
+    host: localhost
+    database: 11
+    port: 6379
 
 
 # DataSourcesProperties
@@ -41,3 +45,6 @@ logging:
   level: debug
 
 # MailProperties
+
+
+# redis
