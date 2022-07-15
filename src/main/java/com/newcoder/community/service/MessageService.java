@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -53,5 +54,10 @@ public class MessageService {
     // 将消息未读变为已读
     public int readMessage(List<Integer> ids) {
         return messageMapper.updateStatus(ids, 1);
+    }
+
+    // 将消息删除，状态变为删除
+    public int deleteMessage(int id) {
+        return messageMapper.updateStatus(Arrays.asList(new Integer[]{id}), 2);
     }
 }

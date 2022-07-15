@@ -91,7 +91,7 @@
 							   id="password" placeholder="请输入您的密码!"
                                required>
                         <div class="invalid-feedback"
-							th:text="passwordMsg">
+							th:text="${passwordMsg}">
                             密码长度不能小于8位!
                         </div>
                     </div>
@@ -117,7 +117,7 @@
 							   id="email" placeholder="请输入您的邮箱!"
                                required>
                         <div class="invalid-feedback"
-							th:text="emailMsg">
+							th:text="${emailMsg}">
                             该邮箱已注册!
                         </div>
                     </div>

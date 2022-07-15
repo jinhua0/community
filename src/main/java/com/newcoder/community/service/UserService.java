@@ -231,6 +231,49 @@ public class UserService implements CommunityConstant {
     }
 
     // 忘记密码
+    public Map<String, Object> forgetPassword(String email, String code, String newPassword) {
+        Map<String, Object> map = new HashMap<>();
+        // 检查邮箱是否存在
+        if (StringUtils.isBlank(email)) {
+            map.put("emailMsg", "邮箱不能为空");
+        }
+        User user = userMapper.selectByEmail(email);
+
+
+        if (user == null) {
+            map.put("emailMsg", "邮箱不存在");
+            return map;
+        }
+
+        // 向邮箱发送验证码
+        if (StringUtils.isBlank(code)) {
+            map.put("codeMsg", "验证码不能为空");
+            return map;
+        }
+
+        Context context = new Context();
+        context.setVariable("email", user.getEmail());
+        String code1 = CommunityUtil.generateUUID().substring(0, 6);
+        context.setVariable("code", code1);
+        String content = templateEngine.process("/mail/forget", context);
+        mailClient.sendMail(user.getEmail(), "验证码", content);
+
+        // 检查验证码
+        if (!code.equals(code1)) {
+            map.put("codeMsg", "验证码错误");
+        }
+
+        if (StringUtils.isBlank(newPassword)) {
+            map.put("passwordMsg", "密码不能为空");
+            return map;
+        }
+        // 重置密码
+        newPassword = CommunityUtil.md5(newPassword + user.getSalt());
+        userMapper.updatePassword(user.getId(), newPassword);
+
+        return map;
+
+    }
 
 
     // 根据用户名来查询用户

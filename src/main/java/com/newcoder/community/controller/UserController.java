@@ -2,11 +2,8 @@ package com.newcoder.community.controller;
 
 import com.newcoder.community.annotation.LoginRequired;
 import com.newcoder.community.dao.LoginTicketMapper;
-import com.newcoder.community.entity.LoginTicket;
-import com.newcoder.community.entity.User;
-import com.newcoder.community.service.FollowService;
-import com.newcoder.community.service.LikeService;
-import com.newcoder.community.service.UserService;
+import com.newcoder.community.entity.*;
+import com.newcoder.community.service.*;
 import com.newcoder.community.util.CommunityConstant;
 import com.newcoder.community.util.CommunityUtil;
 import com.newcoder.community.util.HostHolder;
@@ -28,6 +25,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -64,6 +64,12 @@ public class UserController implements CommunityConstant {
 
     @Autowired
     private FollowService followService;
+
+    @Autowired
+    private DiscussPostService discussPostService;
+
+    @Autowired
+    private CommentService commentService;
 
     @LoginRequired
     @RequestMapping(path = "/setting", method = RequestMethod.GET)
@@ -155,7 +161,7 @@ public class UserController implements CommunityConstant {
 
     @LoginRequired
     @RequestMapping(path = "updatePassword", method = RequestMethod.POST)
-    public String password(String oldPassword, String newPassword, Model model, HttpSession session){
+    public String password(String oldPassword, String newPassword, Model model){
         // 获取当前登录用户
         User user = hostHolder.getUser();
 
@@ -167,6 +173,20 @@ public class UserController implements CommunityConstant {
             model.addAttribute("newPasswordMsg", map.get("newPasswordMsg"));
             return "/site/setting";
 
+        }
+    }
+
+    // @LoginRequired
+    @RequestMapping(path = "forgetPassword", method = RequestMethod.GET)
+    public String forgetPassword(String email, String code, String newPassword, Model model) {
+        Map<String, Object> map = userService.forgetPassword(email, code, newPassword);
+        if (map == null || map.isEmpty()) {
+            return "redirect:/login";
+        } else {
+            model.addAttribute("emailMsg", map.get("emailMsg"));
+            model.addAttribute("codeMsg", map.get("codeMsg"));
+            model.addAttribute("newPasswordMsg", map.get("newPasswordMsg"));
+            return "/site/forget";
         }
     }
 
@@ -199,5 +219,67 @@ public class UserController implements CommunityConstant {
         model.addAttribute("hasFollowed", hasFollowed);
 
         return "/site/profile";
+    }
+
+    // 我的帖子
+    @RequestMapping(path = "/mypost/{userId}", method = RequestMethod.GET)
+    public String getMyPost(@PathVariable("userId") int userId, Page page, Model model) {
+        // 添加 user
+        User user = userService.findUserById(userId);
+        if (user == null) {
+            throw new RuntimeException("该用户不存在！");
+        }
+        model.addAttribute("user", user);
+
+        // 分页信息
+        page.setPath("/user/mypost/" + userId);
+        page.setRows(discussPostService.findDicussPostRows(userId));
+
+        // 帖子列表
+        List<DiscussPost> dicussPosts = discussPostService.findDicussPosts(userId, page.getOffset(), page.getLimit());
+        List<Map<String, Object>> discussVOList = new ArrayList<>();
+        if (dicussPosts != null) {
+            for (DiscussPost discussPost : dicussPosts) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("discussPost", discussPost);
+                map.put("likeCount", likeService.findEntityLikeKey(ENTITY_TYPE_POST, discussPost.getId()));
+                discussVOList.add(map);
+            }
+        }
+        model.addAttribute("discussPosts", discussVOList);
+
+        return "/site/my-post";
+    }
+
+    // 我的回复
+    @RequestMapping(path = "/myreply/{userId}", method = RequestMethod.GET)
+    public String getMyReply(@PathVariable("userId") int userId, Page page, Model model) {
+        // 添加 user
+        User user = userService.findUserById(userId);
+        if (user == null) {
+            throw new RuntimeException("该用户不存在！");
+        }
+        model.addAttribute("user", user);
+
+        // 分页信息
+        page.setPath("/user/myreply/" + userId);
+        page.setRows(commentService.findUserCount(userId));
+
+        // 回复列表
+        List<Comment> commentList = commentService.findUserComments(userId, page.getOffset(), page.getLimit());
+        List<Map<String, Object>> commentVOList;
+        commentVOList = new ArrayList<>();
+        if (commentList != null) {
+            for (Comment comment : commentList) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("comment", comment);
+                DiscussPost discussPost = discussPostService.findDiscussPostById(userId);
+                map.put("discussPost", discussPost);
+                commentVOList.add(map);
+            }
+        }
+        model.addAttribute("comments", commentVOList);
+
+        return "/site/my-reply";
     }
 }
