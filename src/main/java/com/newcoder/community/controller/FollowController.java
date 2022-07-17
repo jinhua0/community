@@ -1,7 +1,9 @@
 package com.newcoder.community.controller;
 
+import com.newcoder.community.entity.Event;
 import com.newcoder.community.entity.Page;
 import com.newcoder.community.entity.User;
+import com.newcoder.community.event.EventProducer;
 import com.newcoder.community.service.FollowService;
 import com.newcoder.community.service.UserService;
 import com.newcoder.community.util.CommunityConstant;
@@ -34,6 +36,9 @@ public class FollowController implements CommunityConstant {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EventProducer eventProducer;
+
     // 关注
     @RequestMapping(path = "follow", method = RequestMethod.POST)
     @ResponseBody
@@ -41,6 +46,15 @@ public class FollowController implements CommunityConstant {
         User user = hostHolder.getUser();
 
         followService.follow(user.getId(), entityType, entityId);
+
+        // 触发关注事件
+        Event event = new Event()
+                .setTopic(TOPIC_FOLLOW)
+                .setEntityType(entityType)
+                .setEntityId(entityId)
+                .setUserId(user.getId())
+                .setEntityUserId(entityId);
+        eventProducer.fireEvent(event);
 
         return CommunityUtil.getJSONString(0, "已关注!");
     }

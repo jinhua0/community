@@ -25,4 +25,6 @@ public interface CommentMapper {
 
     // 评论数量
     int selectCountByUser(int userId);
+
 }
+

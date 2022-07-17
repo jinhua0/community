@@ -28,6 +28,12 @@ spring:
     host: localhost
     database: 11
     port: 6379
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: community-consumer-group
+      enable-auto-commit: true
+      auto-commit-interval: 3000
 
 
 # DataSourcesProperties
@@ -48,3 +54,5 @@ logging:
 
 
 # redis
+
+# Kafka
