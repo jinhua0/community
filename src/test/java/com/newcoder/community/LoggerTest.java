@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
  * @ClassName: LoggerTest
  * @author: jinhua
  */
+
 @SpringBootTest
 @ContextConfiguration(classes = CommunityApplication.class)
 public class LoggerTest {

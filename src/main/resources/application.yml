@@ -34,6 +34,11 @@ spring:
       group-id: community-consumer-group
       enable-auto-commit: true
       auto-commit-interval: 3000
+  data:
+    elasticsearch:
+      cluster-name: nowcoder
+      cluster-nodes: 127.0.0.1:9300
+
 
 
 # DataSourcesProperties
@@ -56,3 +61,5 @@ logging:
 # redis
 
 # Kafka
+
+#ES

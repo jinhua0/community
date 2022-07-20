@@ -1,7 +1,6 @@
 package com.newcoder.community.service;
 
 import com.newcoder.community.util.RedisKeyUtil;
-import org.aspectj.org.eclipse.jdt.internal.eval.EvaluationResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.RedisOperations;

@@ -2,7 +2,6 @@ package com.newcoder.community;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.BoundValueOperations;
@@ -10,14 +9,15 @@ import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.concurrent.TimeUnit;
 
 /**
  * @Description:
  * @ClassName: RedisTest
  * @author: jinhua
  */
+
 @SpringBootTest
 @ContextConfiguration(classes = CommunityApplication.class)
 public class RedisTest {

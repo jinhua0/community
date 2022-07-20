@@ -1,6 +1,5 @@
 package com.newcoder.community;
 
-import com.newcoder.community.config.AlphaConfig;
 import com.newcoder.community.dao.Alphago;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeansException;
@@ -9,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

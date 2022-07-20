@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
+
+
 /**
  * @Description:
  * @ClassName: SensitiveTests
  * @author: jinhua
  */
+
 @SpringBootTest
 @ContextConfiguration(classes = CommunityApplication.class)
 public class SensitiveTests {

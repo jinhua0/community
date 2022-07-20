@@ -1,5 +1,11 @@
 package com.newcoder.community.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
 import java.util.Date;
 
 /**
@@ -7,16 +13,31 @@ import java.util.Date;
  * @ClassName: DiscussPost
  * @author: jinhua
  */
+// 6个分片，3个副本
+@Document(indexName = "discusspost", shards = 6, replicas = 3)
 public class DiscussPost {
-
+    @Id
     private int id;
+
+    @Field(type = FieldType.Integer)
     private int userId;
+
+    // analyzer 存储的时候拆分为更多的词汇，searchAnalyzer 查询的时候以更少的词汇明白我们的意思， 不同的分词器
+    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String title;
+
+    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String content;
+
+    @Field(type = FieldType.Integer)
     private int type; //0 普通， 1 置顶
+    @Field(type = FieldType.Integer)
     private int status; // 0 正常，1 精华， 2拉黑
+    @Field(type = FieldType.Date, store = true, format = DateFormat.custom, pattern = "yyyy-MM-dd")
     private Date createTime;
+    @Field(type = FieldType.Integer)
     private int commentCount;
+    @Field(type = FieldType.Double)
     private double score;
 
     public int getId() {

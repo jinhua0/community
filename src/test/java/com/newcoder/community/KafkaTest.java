@@ -9,12 +9,12 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 
+
 /**
  * @Description:
  * @ClassName: KafkaTest
  * @author: jinhua
  */
-
 @SpringBootTest
 @ContextConfiguration(classes = CommunityApplication.class)
 public class KafkaTest {
