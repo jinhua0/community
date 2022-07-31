@@ -1,5 +1,6 @@
 package com.newcoder.community;
 
+import com.newcoder.community.service.DiscussPostService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class RedisTest {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private DiscussPostService discussPostService;
 
     @Test
     public void testStrings() {
@@ -149,5 +153,9 @@ public class RedisTest {
     }
 
     // 统计三组数据的布尔值， 三组数据做OR运算
-
+    @Test
+    public void testDiscussPost() {
+        System.out.println(discussPostService.updateScore(287, 2000));
+        //System.out.println(discussPostService.updateType(286,1));
+    }
 }

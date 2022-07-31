@@ -236,7 +236,7 @@ public class UserController implements CommunityConstant {
         page.setRows(discussPostService.findDicussPostRows(userId));
 
         // 帖子列表
-        List<DiscussPost> dicussPosts = discussPostService.findDicussPosts(userId, page.getOffset(), page.getLimit());
+        List<DiscussPost> dicussPosts = discussPostService.findDicussPosts(userId, page.getOffset(), page.getLimit(), 0);
         List<Map<String, Object>> discussVOList = new ArrayList<>();
         if (dicussPosts != null) {
             for (DiscussPost discussPost : dicussPosts) {

@@ -26,7 +26,7 @@ import java.util.Map;
  * @ClassName: ElasticsearchService
  * @author: jinhua
  */
-@Service
+//@Service
 public class ElasticsearchService {
 
     @Autowired

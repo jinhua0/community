@@ -38,6 +38,15 @@ spring:
     elasticsearch:
       cluster-name: nowcoder
       cluster-nodes: 127.0.0.1:9300
+  task:
+    execution:
+      pool:
+        core-size: 5
+        max-size: 15
+        queue-capacity: 100
+    scheduling:
+      pool:
+        size: 5
 
 
 
@@ -62,4 +71,6 @@ logging:
 
 # Kafka
 
-#ES
+# ES
+
+# Spring Pool

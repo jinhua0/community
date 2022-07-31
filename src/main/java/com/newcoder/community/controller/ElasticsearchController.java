@@ -22,7 +22,7 @@ import java.util.Map;
  * @ClassName: ElasticsearchController
  * @author: jinhua
  */
-@Controller
+//@Controller
 public class ElasticsearchController implements CommunityConstant {
 
     @Autowired
