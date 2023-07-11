@@ -30,7 +30,7 @@ public class DiscussPost {
     private String content;
 
     @Field(type = FieldType.Integer)
-    private int type; //0 普通， 1 置顶
+    private int type; // 0 普通， 1 置顶
     @Field(type = FieldType.Integer)
     private int status; // 0 正常，1 精华， 2拉黑
     @Field(type = FieldType.Date, store = true, format = DateFormat.custom, pattern = "yyyy-MM-dd")

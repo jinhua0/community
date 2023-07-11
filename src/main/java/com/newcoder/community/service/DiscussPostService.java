@@ -34,7 +34,6 @@ public class DiscussPostService {
     @Autowired
     private SensitiveFilter sensitiveFilter;
 
-
     private int maxSize = 15;
 
     private int expireSeconds = 180;

@@ -19,7 +19,7 @@ import java.util.Date;
  * @ClassName: ServiceLogAspect
  * @author: jinhua
  */
-//@Component
+//@Compo0nent
 //@Aspect
 public class ServiceLogAspect {
     private static final Logger logger = LoggerFactory.getLogger(ServiceLogAspect.class);
